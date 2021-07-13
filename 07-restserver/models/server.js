@@ -5,9 +5,12 @@ const { dbConnection } = require('../db/config');
 class Server {
 
     constructor(){
-        this.app = express();
+        this.app  = express();
         this.port = process.env.PORT;
+
         this.usersPath = '/api/users';
+        this.authPath  = '/api/auth';
+
 
         //Conexion a db (mongo)
         this.connectDB();
@@ -37,7 +40,10 @@ class Server {
 
     routes(){
         //Se accede a usuarios(rutas y estas acceden al controlador)
-        this.app.use(this.usersPath,require('../routes/users'))
+        this.app.use(this.authPath,require('../routes/auth'));
+
+        this.app.use(this.usersPath,require('../routes/users'));
+
 
     }
 

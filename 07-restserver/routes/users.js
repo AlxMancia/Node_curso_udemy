@@ -1,10 +1,15 @@
 const { Router } = require('express');
-//Encargador de verificar correos
 const { check } = require('express-validator');
-const { usersGet, usersPost, usersPut, usersDelete, usersPatch } = require('../controllers/users');
-const { validateFields } = require('../middlewares/validate-fields');
-const { isRoleValid, emailExist, userByIdExist } = require('../helpers/db-validators')
 
+// const { validateFields } = require('../middlewares/validate-fields');
+// const { validateJWT }    = require('../middlewares/validateJWT');
+// const { isAdminRole, hasRole }    = require('../middlewares/validateRole');
+const { validateFields, validateJWT, isAdminRole, hasRole} = require('../middlewares')
+
+
+const { isRoleValid, emailExist, userByIdExist } = require('../helpers/db-validators');
+
+const { usersGet, usersPost, usersPut, usersDelete, usersPatch } = require('../controllers/users');
 
 const router = Router();
 
@@ -40,9 +45,12 @@ router.put('/:id',[
 
 
 router.delete('/:id',[
+    validateJWT,
+    // isAdminRole,
+    hasRole('ADMIN_ROLE','USER_ROLE'),
     check('id','No es un ID valido').isMongoId(),
     check('id').custom(userByIdExist),
-    validateFields
+    validateFields,
 ],  usersDelete);
 
 

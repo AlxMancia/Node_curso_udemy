@@ -20,6 +20,7 @@ const UserSchema = Schema({
     role:{
         type: String,
         required: true,
+        default : 'USER_ROLE',
         enum: ['ADMIN_ROLE','USER_ROLE']
     },
     state: {
@@ -34,7 +35,8 @@ const UserSchema = Schema({
 //Elimina la contra
 UserSchema.methods.toJSON = function(){
     //Se saca __v y password lo demas se guarda en user y ese se retorna
-    const { __v, password, ...user } = this.toObject();
+    const { __v, password,_id, ...user } = this.toObject();
+    user.uid = _id;
     return user
 }
 
