@@ -43,7 +43,7 @@ class Server {
         //Directorio publico
         this.app.use(express.static('public'));
 
-        //Manejar el file upload
+        //Manejar el fcoile upload
         this.app.use(fileUpload({
             useTempFiles : true,
             tempFileDir : '/tmp/',
