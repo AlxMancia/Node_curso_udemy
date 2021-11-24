@@ -5,7 +5,7 @@ const { inquirerMenu, pausa, leerInput, listadoTareasBorrar, confirmar, mostrarL
 const Tareas = require('./models/tareas');
 //prueba commit
 console.clear();
-//dasda
+//dasda gg
 const main = async() => {
     let opt = '';
     const tareas = new Tareas();
